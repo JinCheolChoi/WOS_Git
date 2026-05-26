@@ -37,7 +37,7 @@ Lanchester_Simulation=function(R.attack,
   # Total_damage
   Total_damage_at_t=function(Damage_per_hit,
                              Number_of_troops){
-    Total_damage=Damage_per_hit*round(sqrt(Number_of_troops))
+    Total_damage=Damage_per_hit*ceiling(sqrt(Number_of_troops))
     return(Total_damage)
   }
   
@@ -115,7 +115,7 @@ Lanchester_Simulation=function(R.attack,
 #
 R.info=Troop_info[`Troop type`=="Infantry" &
                     Tier=="3",]
-R.info$R.n_of_troops=100
+R.info$R.n_of_troops=500
 D.info=Troop_info[`Troop type`=="Infantry" &
                     Tier=="3",]
 D.info$D.n_of_troops=500

@@ -127,8 +127,11 @@ Salvo_Simulation=function(R.attack,
     # R.death_at_t=(D.attack*D.lethality-R.defense)/(R.health)*(D.n_of_troops_at_t[tail(Turn, 1)]/R.n_of_troops_at_t[tail(Turn, 1)])
     # D.death_at_t=(R.attack*R.lethality-D.defense)/(D.health)*(R.n_of_troops_at_t[tail(Turn, 1)]/D.n_of_troops_at_t[tail(Turn, 1)])
     
-    R.death_at_t=(D.attack*D.lethality)/(R.defense*R.health)*(round(D.n_of_troops_at_t[tail(Turn, 1)]^(1/10)))
-    D.death_at_t=(R.attack*R.lethality)/(D.defense*D.health)*(round(R.n_of_troops_at_t[tail(Turn, 1)]^(1/10)))
+    
+    R.death_at_t=max(0,
+                     D.attack*D.lethality)/(R.defense*R.health)*(ceiling(D.n_of_troops_at_t[tail(Turn, 1)]^(1/2)))
+    D.death_at_t=max(0,
+                     R.attack*R.lethality)/(D.defense*D.health)*(ceiling(R.n_of_troops_at_t[tail(Turn, 1)]^(1/2)))
     
     R.n_of_troops_at_t=c(R.n_of_troops_at_t, R.n_of_troops_at_t[tail(Turn, 1)]-R.death_at_t)
     D.n_of_troops_at_t=c(D.n_of_troops_at_t, D.n_of_troops_at_t[tail(Turn, 1)]-D.death_at_t)
@@ -145,10 +148,10 @@ Salvo_Simulation=function(R.attack,
 }
 
 #
-R.info=Troop_info[`Troop type`=="Marksman" &
-                    Tier=="3",]
-R.info$R.n_of_troops=200
-D.info=Troop_info[`Troop type`=="Marksman" &
+R.info=Troop_info[`Troop type`=="Infantry" &
+                    Tier=="2",]
+R.info$R.n_of_troops=500
+D.info=Troop_info[`Troop type`=="Infantry" &
                     Tier=="3",]
 D.info$D.n_of_troops=500
 
